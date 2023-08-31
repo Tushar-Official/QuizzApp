@@ -7,7 +7,7 @@ import { userNotSelected, userSelected } from '../Redux/Slice';
 function Questions() {
     const[query,setQuery]=useState([])
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
-    // const [remainingTime, setRemainingTime] = useState(30 * 60);
+    const [remainingTime, setRemainingTime] = useState(30 * 60);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     
  const userData=useSelector((state)=>state.quiz.Selected )
@@ -28,18 +28,18 @@ function Questions() {
         getData()
        
         setSelectedQuestionIndex(0);
-       // Start the countdown timer
-//  const intervalId = setInterval(() => {
-//     setRemainingTime((prevTime) => prevTime - 1);
-// }, 1000);
+       //Start the countdown timer
+ const intervalId = setInterval(() => {
+    setRemainingTime((prevTime) =>prevTime>0? prevTime - 1:prevTime=0 );
+}, 1000);
 
-// // Clean up the interval when the component unmounts
-// return () => clearInterval(intervalId);
+// Clean up the interval when the component unmounts
+return () => clearInterval(intervalId);
 }, []);
 
 //Calculate minutes and seconds
-// const minutes = Math.floor(remainingTime / 60);
-// const seconds = remainingTime % 60;
+const minutes = Math.floor(remainingTime / 60);
+const seconds = remainingTime % 60;
 
 
 const handleQuery=(id)=>{
@@ -71,22 +71,52 @@ const handleAnswers=(event)=>{
     </div>
  ):(
 <div>
-<div className='header flex justify-between p-2'>
+<div className='header flex h-16 justify-between p-2 bg-slate-300'>
 <div className='active-tabs flex justify-center w-2/3'>
    
     {[...Array(query.length)].map((_, index) => (
-        <div key={index} className='px-1 flex text-lg justify-center w-16 border-2 border-black' onClick={()=>handleQuery(index)}> {index + 1}</div>
+        <div
+        key={index}
+        className={`px-1 flex text-slate-800 bg-sky-100 text-lg 
+          font-bold hover:bg-slate-300 py-2 h-12 bg- justify-center w-16 ${
+            selectedQuestionIndex === index ? 'bg-slate-300' : ''
+          }`}
+        onClick={() => handleQuery(index)}
+      >
+        {index + 1}
+      </div>
     ))}
         
 </div>
-<div className='flex '>
-<p className='mx-1'> Attemped :{userData}</p>
-<p className='mx-1'> Not Attemped :{usersData}</p>
+<div className='flex h-12 py-1 justify-center  bg-slate-200 '>
+<p className='mx-1 p-2 text-base text-slate-600 font-semibold'> Attemped: {userData}</p>
+<p className='mx-1 p-2 text-base text-red-600 font-semibold '> Not Attemped: {usersData}</p>
 </div>
-<div className='timer flex '>
- {/* Minutes and seconds divs *
-                     <div className='mx-2 text-lg font-medium'>Minutes: {minutes}</div> 
-    <div className='mx-2 text-lg font-medium'>Seconds: {seconds}</div> */}
+<div className='timer w-44 justify-center py-3 flex bg-white '>
+<div className='mx-1 text-base text-center  text-black font-medium'>Time Left :</div>
+
+{minutes < 10 ? (
+    <>
+      <div className='text-base text-red-500 font-medium'>
+        {minutes}:
+      </div>
+      <div className='text-base text-red-500 font-medium'>
+        {seconds}
+      </div>
+    </>
+  ) : (
+    <>
+      <div className='text-base font-medium'>
+        {minutes}:
+      </div>
+      <div className='text-base font-medium'>
+        {seconds}
+      </div>
+    </>
+  )}
+  
+
+
 </div>
 </div>
 <div className='questions  h-44 items-center p-4 ml-12 '>
@@ -106,7 +136,8 @@ const handleAnswers=(event)=>{
                     
                                             onClick={handleAnswers}
                                         />
-                                        <label htmlFor={`answer-${index}`} className='text-sm font-medium text-slate-800 items-center mx-2'>{answer}</label>
+                                        <label htmlFor={`answer-${index}`} 
+                                        className='text-sm font-medium text-slate-800 items-center mx-2'>{answer}</label>
                                     </li>
                                 </div>
                             ))}
@@ -117,8 +148,9 @@ const handleAnswers=(event)=>{
                 <div>
             
             </div>
-            <div className='next my-16 flex justify-start' onClick={handleQuestion}>
-            <button>Next</button></div>
+            <div className='next my-16 flex justify-start text-center 
+             ' onClick={handleQuestion}>
+            <button className='text-center w-20 h-8 text-black  bg-slate-300 font-semibold text-lg rounded-md '>Next</button></div>
             </div>
             
             </div>        
