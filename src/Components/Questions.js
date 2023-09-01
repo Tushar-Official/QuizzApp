@@ -56,6 +56,7 @@ const handleQuery=(id)=>{
     
 const handleQuestion=()=>{
   if(selectedQuestionIndex<14){
+    dispatch(userNotSelected({ id: selectedQuestionIndex }))
     setSelectedQuestionIndex(selectedQuestionIndex + 1);
   }
    
