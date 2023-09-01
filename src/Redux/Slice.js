@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState={
-    userAnswers:[],
+    usercollectedData:[],
     Selected:0,
     NotSelected:0,
     lastSelectedId: null,
     skippedQuestions: [],
+    userChoicedData:[],
 
 }
 const QuizSlice=createSlice({
@@ -39,10 +40,17 @@ const QuizSlice=createSlice({
             }
             state.skippedQuestions = state.skippedQuestions.filter((qid) => qid !== id);
 
+    },
+    collectedData(state,action){
+            state.usercollectedData=[action.payload]
+    },
+    userChoiced(state,action){
+        state.userChoicedData=[action.payload]
+       
     }
 }
 })
 
-export const {userNotSelected,userSelected}=QuizSlice.actions
+export const {userNotSelected,userSelected,collectedData,userChoiced}=QuizSlice.actions
 
 export default QuizSlice.reducer

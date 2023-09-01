@@ -6,6 +6,7 @@ import { BrowserRouter as Router ,Routes,Route} from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import {Provider} from 'react-redux'
 import {store} from './Redux/Store'
+import ReportPage from './Components/ReportPage';
 function App() {
  
   return (
@@ -22,6 +23,7 @@ function App() {
       <Questions/>
       </ErrorBoundary>
     }/>
+    <Route path="/Report" element={<ErrorBoundary><ReportPage/></ErrorBoundary>}/>
     
      </Routes>
      </Router>
