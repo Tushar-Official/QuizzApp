@@ -104,7 +104,13 @@ const handleSubmitData=()=>{
 <div className='timer w-44 justify-center py-3 flex bg-white '>
 <div className='mx-1 text-base text-center  text-black font-medium'>Time Left :</div>
 
-{seconds===0 && minutes===0? handleSubmitData()&& navigate('/Reports'):
+{seconds===0 && minutes===0? (
+  // If time is 0, automatically navigate to the next page and generate a report
+  (() => {
+    handleSubmitData();
+    navigate('/Reports');
+  })()
+):
   minutes < 10  ? (
     <>
       <div className='text-base text-red-500 font-medium'>

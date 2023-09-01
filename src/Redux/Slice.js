@@ -45,7 +45,15 @@ const QuizSlice=createSlice({
             state.usercollectedData=[action.payload]
     },
     userChoiced(state,action){
-        state.userChoicedData=[action.payload]
+        const newData = action.payload;
+
+  if (newData.length === 0) {
+    // If newData is empty, set usercollectedData to an empty array or null (whichever you prefer)
+    state.usercollectedData = []; // or state.usercollectedData = null;
+  } else {
+    state.usercollectedData = newData;
+  }
+  console.log(state.usercollectedData)
        
     }
 }

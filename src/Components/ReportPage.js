@@ -10,20 +10,25 @@ function ReportPage() {
   useEffect(() => {
     let newScore = 0;
   
-    selectedOptions[0].forEach((option, index) => {
-      if (correctAnswers[0].updatedAnswers[index] === option.correct_answer) {
-        newScore += 1; // Increment for correct answer
-      } else if (correctAnswers[0].updatedAnswers[index] !== option.correct_answer) {
-        if(newScore<=0){
-          newScore=0
+    if (
+      Array.isArray(correctAnswers) &&
+      correctAnswers.length > 0 &&
+      Array.isArray(selectedOptions) &&
+      selectedOptions.length > 0 &&
+      correctAnswers[0]?.updatedAnswers
+    ) {
+      selectedOptions[0]?.forEach((option, index) => {
+        if (correctAnswers[0].updatedAnswers[index] === option.correct_answer) {
+          newScore += 1; // Increment for correct answer
+        } else if (correctAnswers[0].updatedAnswers[index] !== option.correct_answer) {
+          if (newScore <= 0) {
+            newScore = 0;
+          } else {
+            newScore -= 1;
+          }
         }
-        else{
-          newScore-=1
-        }
-        ; // Decrement only for incorrect answers
-      }
-    });
-    
+      });
+    }
     setScore(newScore);
   }, [correctAnswers, selectedOptions]);
   setTimeout(()=>{
@@ -48,24 +53,27 @@ return (
     </div>
     </div>
     <div className='mt-12 grid grid-col-1 grid-row-3 gap-y-2 m-44'>
-    {selectedOptions[0].map((option, index) => (
+    {
+      selectedOptions[0]?.map((option, index) => (
       <div key={index}>
         <p className='text-lg font-semibold text-slate-600 '>{option.question}</p>
         <p className='text-green-600 font-medium text-base'>Correct Answer: {option.correct_answer}</p>
-        {correctAnswers[0].updatedAnswers[index] ? (
-          option.correct_answer === correctAnswers[0].updatedAnswers[index] ? (
-            <p className='text-green-600 font-medium text-base'>Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
+        {correctAnswers[0]?.updatedAnswers[index] !== undefined ? (
+          correctAnswers[0]?.updatedAnswers[index] === "" ? (
+            <p className="text-green-600 font-medium text-base">Selected Answer: {option.correct_answer}</p>
+          ) : correctAnswers[0]?.updatedAnswers[index] === option.correct_answer ? (
+            <p className="text-green-600 font-medium text-base">Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
           ) : (
-            <p className='text-red-600 font-medium text-base'>Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
+            <p className="text-red-600 font-medium text-base">Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
           )
         ) : (
-          <p className='text-black font-medium text-base'>Not Attempted</p>
+          <p className="text-black font-medium text-base">Not Attempted</p>
         )}
-       
        
        </div>
       
-    ))}
+    ))
+        }
     </div>
    
     
