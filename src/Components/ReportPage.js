@@ -60,11 +60,11 @@ return (
       <div key={index}>
         <p className='text-lg font-semibold text-slate-600 '>{option.question}</p>
         <p className='text-green-600 font-medium text-base'>Correct Answer: {option.correct_answer}</p>
-        {correctAnswers[0].updatedAnswers[index] ? (
-          option.correct_answer === correctAnswers[0].updatedAnswers[index] ? (
-            <p className='text-green-600 font-medium text-base'>Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
+        {correctAnswers[0]?.updatedAnswers[index] ? (
+          option.correct_answer === correctAnswers[0]?.updatedAnswers[index] ? (
+            <p className='text-green-600 font-medium text-base'>Selected Answer: {correctAnswers[0]?.updatedAnswers[index]}</p>
           ) : (
-            <p className='text-red-600 font-medium text-base'>Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
+            <p className='text-red-600 font-medium text-base'>Selected Answer: {correctAnswers[0]?.updatedAnswers[index]}</p>
           )
         ) : (
           <p className='text-gray-600 font-medium text-base'>Not Attempted</p>
