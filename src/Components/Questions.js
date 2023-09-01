@@ -11,9 +11,6 @@ function Questions() {
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
     const [remainingTime, setRemainingTime] = useState(30 * 60);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
-  
-  
-    
    
     const navigate=useNavigate()
     
@@ -30,7 +27,6 @@ function Questions() {
      }
 
  
-    
     useEffect(()=>{
         getData()
        
@@ -52,8 +48,10 @@ const seconds = remainingTime % 60;
 const handleQuery=(id)=>{
     if(selectedAnswers[selectedQuestionIndex] === null){
         dispatch(userNotSelected({ id: selectedQuestionIndex }))
+        
     }
     setSelectedQuestionIndex(id)
+  
     }
     
 const handleQuestion=()=>{
@@ -79,8 +77,6 @@ const handleSubmitData=()=>{
 }
 
 
-
-
   return (
  <>
  
@@ -91,10 +87,9 @@ const handleSubmitData=()=>{
     {[...Array(query.length)].map((_, index) => (
         <div
         key={index}
-        className={`px-1 flex text-slate-800 bg-sky-100 text-lg cursor-pointer
-          font-bold hover:bg-slate-300 py-2 h-12 bg- justify-center w-16 ${
-            selectedQuestionIndex === index ? 'bg-slate-300' : ''
-          }`}
+            className={`px-1 flex text-slate-800 bg-sky-100 text-lg cursor-pointer font-bold hover:bg-slate-300 py-2 h-12 bg- justify-center w-16 ${
+              selectedQuestionIndex === index ? 'bg-slate-300' : ''
+            }`}
         onClick={() => handleQuery(index)}
       >
         {index + 1}
@@ -141,7 +136,7 @@ const handleSubmitData=()=>{
                         <ul>
                             {  [...query[selectedQuestionIndex]?.incorrect_answers,query[selectedQuestionIndex]?.correct_answer]
                                 .map((answer, index) => (
-                                <div key={index} className='my-2'>
+                                <div key={index} className='my-2 '>
                                     <li>
                                         <input 
                                             type="radio"

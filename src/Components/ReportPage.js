@@ -50,7 +50,7 @@ return (
     <div className='mt-12 grid grid-col-1 grid-row-3 gap-y-2 m-44'>
     {selectedOptions[0].map((option, index) => (
       <div key={index}>
-        <p className='text-lg font-semibold text-black '>{option.question}</p>
+        <p className='text-lg font-semibold text-slate-600 '>{option.question}</p>
         <p className='text-green-600 font-medium text-base'>Correct Answer: {option.correct_answer}</p>
         {correctAnswers[0].updatedAnswers[index] ? (
           option.correct_answer === correctAnswers[0].updatedAnswers[index] ? (
@@ -59,7 +59,7 @@ return (
             <p className='text-red-600 font-medium text-base'>Selected Answer: {correctAnswers[0].updatedAnswers[index]}</p>
           )
         ) : (
-          <p className='text-slate-600 font-medium text-base'>Not Attempted</p>
+          <p className='text-black font-medium text-base'>Not Attempted</p>
         )}
        
        
