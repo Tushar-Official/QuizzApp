@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 function ReportPage() {
   const correctAnswers=useSelector((state) => state.quiz.userChoicedData)
   const selectedOptions=useSelector((state) => state.quiz.usercollectedData)
   const[score,setScore]=useState(0)
   const[ready,SetReady]=useState(true)
+  const navigate=useNavigate()
  
  
   useEffect(() => {
@@ -36,6 +38,10 @@ function ReportPage() {
   setTimeout(()=>{
     SetReady(false)
   },5000)
+
+  const handleFinish=()=>{
+    navigate("/Finish")
+  }
 return (
   
     <div className=''>
@@ -75,11 +81,15 @@ return (
     ))
         }
     </div>
-   
+    <div className=' mb-44 justify-center flex '>
+    <button className='bg-green-600 w-32 rounded-lg h-8 text-2xl font-semibold text-white cursor-pointer hover:bg-green-800' 
+    onClick={()=>handleFinish()}>FINISH</button></div>
     
     
     </>
     )}
+
+    
    
     </div>
   )

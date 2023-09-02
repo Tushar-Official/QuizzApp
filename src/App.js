@@ -7,6 +7,7 @@ import ErrorBoundary from './ErrorBoundary';
 import {Provider} from 'react-redux'
 import {store} from './Redux/Store'
 import ReportPage from './Components/ReportPage';
+import Finish from './Components/Finish';
 function App() {
  
   return (
@@ -14,17 +15,14 @@ function App() {
     <Provider store={store}>
     <Router>
     <Routes>
-   
-
-     <Route path="/" element={<Start/>}/>
-  
-     <Route path="/Questions" element={
+   <Route path="/" element={<Start/>}/>
+  <Route path="/Questions" element={
       <ErrorBoundary>
       <Questions/>
       </ErrorBoundary>
     }/>
     <Route path="/Report" element={<ErrorBoundary><ReportPage/></ErrorBoundary>}/>
-    
+    <Route path="/Finish" element={<Finish/>}/>
      </Routes>
      </Router>
      </Provider>
